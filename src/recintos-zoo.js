@@ -62,15 +62,16 @@ class RecintosZoo {
                     numero: recinto.numero,
                     espacoLivre: espacoDisponivel - espacoNecessario,
                     total: recinto.total,
+                    espacoDisponivel,  // Adiciona essa informação para ordenar pelo espaço
                 });
             }
         });
 
-        // Ordena os recintos viáveis
+        // Ordena os recintos viáveis por espaço livre, em seguida pelo número do recinto
         if (recintosViaveis.length > 0) {
             return {
                 recintosViaveis: recintosViaveis
-                    .sort((a, b) => a.numero - b.numero)
+                    .sort((a, b) => a.espacoDisponivel - b.espacoDisponivel || a.numero - b.numero)
                     .map((recinto) => `Recinto ${recinto.numero} (espaço livre: ${recinto.espacoLivre} total: ${recinto.total})`),
             };
         } else {
